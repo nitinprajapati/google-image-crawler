@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search History</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container" id="historyPane">
+    
+<div>
+<script>
+  var getImages = function (){
+    $.ajax({
+        type: "GET",
+        url: "/historyLinks",   
+        async: true,
+        statusCode: {
+            404: function() {
+                alert( "page not found" );
+            }
+        },
+        success: function(data){
+            var html = "";
+            if(data.length != 0){
+                for(i=0; i<data.length; i++){
+                    html += "<div><a href='/getImages/"+data[i].inputKey+"' target='_blank'>"+data[i].inputKey.toUpperCase();+"</a><div>";
+                }
+            }
+            else{
+                html = "<h1>No search history found</h1>";
+            }
+           $('#historyPane').html(html);
+        }
+    });
+  
+  };
+  $(function (){
+        getImages();
+    })
+</script>
+</body>
+</html>
