@@ -2,16 +2,14 @@
   "name": "scrap_images_from_google",
   "version": "1.0.0",
   "description": "Download image by nodejs app without using Google images api adn the apply compression algorithm after that apply black and white filter.",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "node test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "\\"
-  },
-  "author": "Nitin Kumar",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
@@ -25,5 +23,13 @@
     "path": "^0.12.7",
     "request": "^2.83.0",
     "uninstall": "0.0.0"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitinprajapati/google-image-crawler.git"
   }
 }
