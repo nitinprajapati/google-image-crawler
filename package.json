@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Download image by nodejs app without using Google images api adn the apply compression algorithm after that apply black and white filter.",
   "engines": {
-    "node": "6.11.1"
+    "node": "6.10.1"
   },
   "main": "index.js",
   "scripts": {
