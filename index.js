@@ -5,7 +5,7 @@ const REQUEST = require("request");
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
-const MONGO_LINK = "mongodb://<dbuser>:<dbpassword>@ds259245.mlab.com:59245/googleimagesearch";
+const MONGO_LINK = "mongodb://nitin:admin123@ds259245.mlab.com:59245/googleimagesearch";
 //APP.use("/downloaded images", EXPRESS.static(__dirname+"/downloaded images"));
 APP.listen(process.env.PORT || '3000');
 
@@ -13,7 +13,7 @@ APP.get('/', function (req, res) {
     res.sendFile('views/index.html', {root: __dirname })
 });
 
-APP.use("/", EXPRESS.static('downloaded images'));
+APP.use("/", EXPRESS.static('public'));
 
 
 
@@ -27,13 +27,13 @@ APP.get('/search', function(req, res) {
     var  count = 0;
     var resSend = false;
     const searcKeyword    =   req.query.keyword;
-    MongoClient.connect("mongodb://localhost:27017/googleimagesearch", function (err, db) {
+    MongoClient.connect(MONGO_LINK, function (err, db) {
 		if(!err){
 			db.collection('searchKeywords').insertOne({"inputKey" : searcKeyword}, function(err, r) {
                 
                 
                 var fileName = "", nodes = "", i;
-                var folderName = __dirname+"/downloaded images/"+searcKeyword+"/";
+                var folderName = __dirname+"/public/"+searcKeyword+"/";
                 if (!fs.existsSync(folderName)){
                     fs.mkdirSync(folderName);
                 }
@@ -107,28 +107,29 @@ APP.get('/search', function(req, res) {
 
 APP.get("/historyLinks", function (req, res){
     
-    MongoClient.connect("mongodb://localhost:27017/googleimagesearch", function (err, db) {
+    MongoClient.connect(MONGO_LINK, function (err, db) {
         if(!err){
             var query = 'db.getCollection("searchKeywords").find({})';
-			db.eval('function(){ return ' + query + '.toArray(); }', function(err, result){
-                if(err){
-                    result = err;
-                }
-                res.send(result);
-			});
-			  
+            db.collection('searchKeywords', function(err, collection) {
+                collection.find().toArray(function(err, items) {
+                    console.log(items);
+                    res.send(items);
+                });
+            });
         }
     });
 });
-
+var key;
 APP.get("/getImages/:key", function (req, res){
-    var key = req.params.key;
+    key = req.params.key;
     var imgPaths = [];
-    var imgDir = __dirname+"/downloaded images/"+key+"/";
+    var imgDir = __dirname+"/public/"+key+"/";
+    var html = "";
     fs.readdir(imgDir, function(err, items) {
         for(i=0; i<items.length; i++){
-            imgPaths.push(imgDir+i);
+  //          imgPaths.push(imgDir+items[i]);
+            html += "<img src='./../public/"+key+"/"+items[i]+"' />";
         }
-        res.send("<img src='./../../downloaded images/cars/0.png' />");
+        res.send(html);
     });
 });
