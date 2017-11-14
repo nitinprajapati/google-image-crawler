@@ -1,13 +1,13 @@
 const EXPRESS = require('express');
 const APP = EXPRESS();
-const PORT = 90;
+//const PORT = 90;
 const REQUEST = require("request");
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
 const MONGO_LINK = "mongodb://<dbuser>:<dbpassword>@ds259245.mlab.com:59245/googleimagesearch";
 //APP.use("/downloaded images", EXPRESS.static(__dirname+"/downloaded images"));
-APP.listen(PORT);
+APP.listen(process.env.PORT || '3000');
 
 APP.get('/', function (req, res) {
     res.sendFile('views/index.html', {root: __dirname })
