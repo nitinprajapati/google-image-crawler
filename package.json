@@ -22,7 +22,8 @@
     "multer": "^1.3.0",
     "path": "^0.12.7",
     "request": "^2.83.0",
-    "uninstall": "0.0.0"
+    "uninstall": "0.0.0",
+    "npm" : "3.10.10"
   },
   "devDependencies": {
     "request": "^2.81.0",
