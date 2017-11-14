@@ -13,7 +13,7 @@ APP.get('/', function (req, res) {
     res.sendFile('views/index.html', {root: __dirname })
 });
 
-APP.use("/", EXPRESS.static('public'));
+APP.use("/public", EXPRESS.static('public'));
 
 
 
