@@ -4,7 +4,7 @@ const REQUEST = require("request");
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
-const MONGO_LINK = "mongodb://nitin:admin123@ds259245.mlab.com:59245/googleimagesearch";
+const MONGO_LINK = "mongodb://username:password@ds259245.mlab.com:59245/googleimagesearch";
 
 APP.listen(process.env.PORT || '3000');
 
